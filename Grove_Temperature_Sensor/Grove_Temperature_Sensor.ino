@@ -1,7 +1,7 @@
 // demo of Starter Kit V2.0 - Grove Temperature Sensor
 //
 
-const int pinTemp = A0;      // pin of temperature sensor
+const int pinTemp = A2;      // pin of temperature sensor
 
 float temperature;
 int B=3975;                  // B value of the thermistor
@@ -9,9 +9,8 @@ float resistance;
 
 void setup()
 {
-    Serial.begin(9600);     //Baud rate for the serial communication of Arduino
-    pinMode(A0,INPUT);      //Setting the A0 pin as input pin to take data from the temperature sensor 
-    
+    Serial.begin(115200);     //Baud rate for the serial communication of Arduino
+
 }
 
 void loop()

@@ -3,11 +3,11 @@
 // this demo will show you how to use Grove - Button to control a LED
 // when the button was pressed, the led will on 
 // otherwise led off
-// Grove - Button connect to D3
-// Grove - LED connect to D7
+// Grove - Button connect to D2
+// Grove - LED connect to D3
 
-const int pinButton = 3;                        // pin of button define here
-const int pinLed    = 7;                        // pin of led define here
+const int pinButton = 2;                        // pin of button define here
+const int pinLed    = 3;                        // pin of led define here
 
 void setup()
 {
@@ -17,7 +17,7 @@ void setup()
 
 void loop()
 {
-    if(digitalRead(pinButton))                     // when button is pressed
+    if(digitalRead(pinButton))                  // when button is pressed
     {
         digitalWrite(pinLed, HIGH);             // led on
     }

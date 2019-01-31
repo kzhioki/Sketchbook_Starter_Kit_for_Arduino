@@ -3,7 +3,7 @@
 // as the topic, we will use Grove - Led to make a breath light
 // Grove - LED connect to D3
 // the following pin which support PWM can be used:
-// 3, 5, 6, 9, 10, 11
+// 3, 5, 6, 9 = HW PWM, others = SW PWM
 
 const int pinLed    = 3;                        // pin of led define here
 

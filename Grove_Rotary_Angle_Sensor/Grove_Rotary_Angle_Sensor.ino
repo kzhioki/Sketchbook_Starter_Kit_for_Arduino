@@ -1,12 +1,11 @@
 // demo of Starter Kit V2.0
 
 
-const int potentiometer = A0;                    // rotary angle sensor connect to A0
+const int potentiometer = A3;                    // rotary angle sensor connect to A3
 
 void setup()
 {
-    Serial.begin(9600);                         // set the serial communication frequency at 9600 bits per sec
-    pinMode(potentiometer, INPUT);
+    Serial.begin(115200);                        // set the serial communication frequency at 115200 bits per sec
 }
 
 void loop()

@@ -1,14 +1,21 @@
+/*
+ * UART    : LED (used as GPIO pin)
+ * I2C     : -
+ * D18/D19 : Touch
+ * A2/A3   : Potentiometer
+ */
+
 #include <Arduino.h>
 
-const int pinButton     = 19;       // pin of button define here
-const int pinLed        = 0;        // pin of led define here
-const int potentiometer = A3;       // rotary angle sensor connect to A3
+const int pinButton     = PIN_D19;
+const int pinLed        = PIN_D00;
+const int potentiometer = A3;
 
 void setup()
 {
-    Serial.begin(115200);           // set the serial communication frequency at 115200 bits per sec
-    pinMode(pinButton, INPUT);      // set button INPUT
-    pinMode(pinLed, OUTPUT);        // set led OUTPUT
+  Serial.begin(115200);
+  pinMode(pinLed, OUTPUT);
+  pinMode(pinButton, INPUT);
 }
 
 void blinkLed(int pin)
@@ -24,15 +31,15 @@ void blinkLed(int pin)
 
 void loop()
 {
-    int value = analogRead(potentiometer);
+  int value = analogRead(potentiometer);
 
-    if(digitalRead(pinButton))      // when button is pressed
+  if(digitalRead(pinButton)) // when button is pressed
     {
-        blinkLed(pinLed);
-        delay(value * 2);
+      blinkLed(pinLed);
+      delay(value * 2);
     }
-    else
+  else
     {
-        digitalWrite(pinLed, LOW);
+      digitalWrite(pinLed, LOW);
     }
 }

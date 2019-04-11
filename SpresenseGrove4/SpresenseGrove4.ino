@@ -122,69 +122,71 @@ void showMenu(int menu)
 
 void showResult(int menu)
 {
-  switch (toggleMenu) {
+  switch (menu) {
   case 0: // LiDAR
-
-    char str[7];
-    int distance = 0;
-    int strength = 0;
-
-    getTFminiData(&distance, &strength);
-    if (distance) {
+    {
+      char str[7];
+      int distance = 0;
+      int strength = 0;
       getTFminiData(&distance, &strength);
       if (distance) {
-        printf("Distance: %4d Strength: %4d\n",
-               distance, strength);
+        getTFminiData(&distance, &strength);
+        if (distance) {
+          printf("Distance: %4d Strength: %4d\n",
+                 distance, strength);
 
-        snprintf(str, sizeof(str), "%4d  ", distance);
-        lcd.setCursor(10, 0);
-        lcd.print(str);
+          snprintf(str, sizeof(str), "%4d  ", distance);
+          lcd.setCursor(10, 0);
+          lcd.print(str);
 
-        snprintf(str, sizeof(str), "%4d  ", strength);
-        lcd.setCursor(10, 1);
-        lcd.print(str);
+          snprintf(str, sizeof(str), "%4d  ", strength);
+          lcd.setCursor(10, 1);
+          lcd.print(str);
+        }
       }
     }
     break;
 
   case 1 ... 3: // LCD color setting
-    int i;
-    int value = analogRead(potentiometer);
-    int diff = g_meter - value;
-    unsigned char *target;
+    {
+      int i;
+      int value = analogRead(potentiometer);
+      int diff = g_meter - value;
+      unsigned char *target;
 
-    if (abs(diff) < 50) { // noise filter
-      break;
-    }
-
-    g_meter = value;
-
-    switch (toggleMenu) {
-    case 1:
-      target = &g_r;
-      break;
-    case 2:
-      target = &g_g;
-      break;
-    case 3:
-      target = &g_b;
-      break;
-    }
-
-    *target += diff / 3;
-
-    printf("(r,g,b)=(%d,%d,%d) diff=%d level=%d\n",
-           g_r, g_g, g_b, diff, *target/16);
-
-    lcd.setCursor(0, 1);
-    for (i = 0; i < 16; i++) {
-      if (i < *target / 16) {
-        lcd.write(0xff);
-      } else {
-        lcd.write(0xfe);
+      if (abs(diff) < 50) { // noise filter
+        break;
       }
+
+      g_meter = value;
+
+      switch (menu) {
+      case 1:
+        target = &g_r;
+        break;
+      case 2:
+        target = &g_g;
+        break;
+      case 3:
+        target = &g_b;
+        break;
+      }
+
+      *target += diff / 3;
+
+      printf("(r,g,b)=(%d,%d,%d) diff=%d level=%d\n",
+             g_r, g_g, g_b, diff, *target/16);
+
+      lcd.setCursor(0, 1);
+      for (i = 0; i < 16; i++) {
+        if (i < *target / 16) {
+          lcd.write(0xff);
+        } else {
+          lcd.write(0xfe);
+        }
+      }
+      lcd.setRGB(g_r, g_g, g_b);
     }
-    lcd.setRGB(g_r, g_g, g_b);
     break;
   }
 }

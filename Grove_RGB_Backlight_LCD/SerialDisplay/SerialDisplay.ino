@@ -31,7 +31,7 @@ void setup(){
     // set up the LCD's number of columns and rows:
     lcd.begin(16, 2);
     // initialize the serial communications:
-    Serial.begin(9600);
+    Serial.begin(115200);
 }
 
 void loop()

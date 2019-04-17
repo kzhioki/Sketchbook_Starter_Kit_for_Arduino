@@ -1,5 +1,20 @@
 #include <Arduino.h>
 
+#define USE_SOFTWARESERIAL
+#ifdef USE_SOFTWARESERIAL
+
+#include <SoftwareSerial.h>
+
+// software serial : RX = digital pin 2, TX = digital pin 3
+SoftwareSerial MySerial(2, 3);
+
+#else
+
+// hardware serial : RX = digital pin 0, TX = digital pin 1
+#define MySerial Serial2
+
+#endif
+
 const char *voiceBuffer[] =
 {
     "Turn on the light",
@@ -29,16 +44,17 @@ const char *voiceBuffer[] =
 void setup()
 {
     Serial.begin(115200);
-    Serial2.begin(9600);
+    MySerial.begin(9600);
+    //MySerial.listen(); /* If multiple software serial ports are used */
 }
 
 void loop()
 {
     char cmd;
 
-    if(Serial2.available())
+    if(MySerial.available())
     {
-        cmd = Serial2.read();
+        cmd = MySerial.read();
         Serial.println(voiceBuffer[cmd - 1]);
     }
 }
